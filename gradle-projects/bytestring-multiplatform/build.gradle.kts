@@ -14,7 +14,8 @@ kotlin {
         jvmToolchain(8)
     }
     js(IR)
-    wasm()
+    wasmWasi()
+    wasmJs()
 
     ios()
     watchos()
