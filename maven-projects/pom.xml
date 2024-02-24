@@ -16,6 +16,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <kotlin.version>${KOTLIN_VERSION}</kotlin.version>
         <kotlinx.io.version>${KOTLINX_IO_VERSION}</kotlinx.io.version>
+        <staring.repository.url>${STAGING_REPOSITORY_URL}</staring.repository.url>
     </properties>
 
     <dependencies>
@@ -32,9 +33,20 @@
         </dependency>
     </dependencies>
 
-
     <modules>
         <module>bytestring-jvm</module>
         <module>core-jvm</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>staging</id>
+            <repositories>
+                <repository>
+                    <id>nexus</id>
+                    <url>${staring.repository.url}</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 </project>
