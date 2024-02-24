@@ -14,7 +14,9 @@ buildscript {
 
 apply(plugin = "kotlin")
 
-val stagingRepository: String = project.findProperty("stagingRepository")?.toString() ?: ""
+val stagingRepositoryId: String = project.findProperty("stagingRepository")?.toString()
+    ?: throw IllegalArgumentException("stagingRepository property is missing")
+val stagingRepository: String = "https://oss.sonatype.org/content/repositories/$stagingRepositoryId"
 val kotlinxIoVersion: String = project.findProperty("kotlinxIoVersion")?.toString()
     ?: throw IllegalArgumentException("kotlinxIoVersion property is missing")
 
