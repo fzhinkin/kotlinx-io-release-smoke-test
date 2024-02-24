@@ -14,9 +14,12 @@ buildscript {
 
 apply(plugin = "kotlin")
 
+val stagingRepository: String = project.findProperty("stagingRepository")?.toString() ?: ""
+val kotlinxIoVersion: String = project.findProperty("kotlinxIoVersion")?.toString()
+    ?: throw IllegalArgumentException("kotlinxIoVersion property is missing")
+
 repositories {
     mavenCentral()
-    val stagingRepository: String by project
     if (stagingRepository.isNotBlank()) {
         maven(stagingRepository)
     }
@@ -26,7 +29,6 @@ subprojects {
     repositories {
         mavenCentral()
         mavenLocal()
-        val stagingRepository: String by project
         if (stagingRepository.isNotBlank()) {
             maven(stagingRepository)
         }
@@ -35,8 +37,6 @@ subprojects {
 
 tasks {
     val kotlinVersion: String by project
-    val kotlinxIoVersion: String by project
-    val stagingRepository: String by project
 
     val verifyMavenProjects by registering(Exec::class) {
         executable = if (Os.isFamily(Os.FAMILY_WINDOWS)) {
