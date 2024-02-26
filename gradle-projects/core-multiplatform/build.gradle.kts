@@ -21,7 +21,11 @@ kotlin {
         jvmToolchain(8)
     }
     js(IR) {
-        browser()
+        browser {
+            testTask {
+                useMocha()
+            }
+        }
         nodejs()
     }
     wasmWasi {
@@ -29,7 +33,11 @@ kotlin {
     }
     wasmJs {
         nodejs()
-        browser()
+        browser {
+            testTask {
+                useMocha()
+            }
+        }
     }
 
     ios()
