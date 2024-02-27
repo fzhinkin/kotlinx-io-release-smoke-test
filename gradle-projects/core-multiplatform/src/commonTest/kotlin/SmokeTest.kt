@@ -1,5 +1,7 @@
 import kotlinx.io.Buffer
 import kotlinx.io.bytestring.ByteString
+import kotlinx.io.files.Path
+import kotlinx.io.files.SystemFileSystem
 import kotlinx.io.readByteArray
 import kotlinx.io.readByteString
 import kotlinx.io.write
@@ -22,5 +24,14 @@ class SmokeTest {
         buffer.write(byteString)
 
         assertEquals(ByteString(0x42), buffer.readByteString())
+    }
+
+    @Test
+    fun testUseFiles() {
+        try {
+            SystemFileSystem.exists(Path("."))
+        } catch (t: Throwable) {
+            // that's fine
+        }
     }
 }
