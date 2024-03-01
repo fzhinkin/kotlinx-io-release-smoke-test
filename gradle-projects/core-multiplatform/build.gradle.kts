@@ -23,9 +23,7 @@ kotlin {
     js(IR) {
         browser {
             testTask {
-                useKarma {
-                    useChromeHeadless()
-                }
+                useMocha()
             }
         }
         nodejs()
@@ -37,22 +35,39 @@ kotlin {
         nodejs()
         browser {
             testTask {
-                useKarma {
-                    useChromeHeadless()
-                }
+                useMocha()
             }
         }
     }
 
-    ios()
-    watchos()
-    tvos()
+    androidNativeArm32()
+    androidNativeArm64()
+    androidNativeX64()
+    androidNativeX86()
+
+    iosArm64()
+    iosX64()
+    iosSimulatorArm64()
+
+    watchosX64()
+    watchosArm32()
+    watchosDeviceArm64()
+    watchosSimulatorArm64()
+    watchosArm64()
+
+    tvosArm64()
+    tvosX64()
+    tvosSimulatorArm64()
 
     iosSimulatorArm64()
     watchosSimulatorArm64()
 
     linuxArm64()
+    linuxX64()
+
     macosArm64()
+    macosX64()
+
     mingwX64()
 
     sourceSets {
