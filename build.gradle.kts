@@ -41,12 +41,8 @@ tasks {
     val kotlinVersion: String by project
 
     val verifyMavenProjects by registering(Exec::class) {
-        executable = if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-            "./mvnw.cmd"
-        } else {
-            "./mvnw"
-        }
         workingDir = File(projectDir, "maven-projects")
+        executable = workingDir.resolve(getMavenWrapperName()).absolutePath
         args = buildList {
             add("-DKOTLIN_VERSION=$kotlinVersion")
             add("-DKOTLINX_IO_VERSION=$kotlinxIoVersion")
@@ -58,14 +54,9 @@ tasks {
         }
     }
     val cleanMavenProjects by registering(Exec::class) {
-        executable = if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-            "./mvnw.cmd"
-        } else {
-            "./mvnw"
-        }
         workingDir = File(projectDir, "maven-projects")
+        executable = workingDir.resolve(getMavenWrapperName()).absolutePath
         args = listOf("-DKOTLIN_VERSION=$kotlinVersion", "-DKOTLINX_IO_VERSION=$kotlinxIoVersion", "clean")
-
     }
     named("check").configure {
         dependsOn(verifyMavenProjects)
@@ -75,3 +66,10 @@ tasks {
         dependsOn(cleanMavenProjects)
     }
 }
+
+fun getMavenWrapperName(): String =
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        "mvnw.cmd"
+    } else {
+        "mvnw"
+    }

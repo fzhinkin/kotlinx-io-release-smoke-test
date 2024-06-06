@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 
@@ -13,13 +14,13 @@ plugins {
 
 val kotlinxIoVersion: String by project.parent!!
 
-@OptIn(ExperimentalKotlinGradlePluginApi::class)
+@OptIn(ExperimentalKotlinGradlePluginApi::class, ExperimentalWasmDsl::class)
 kotlin {
     targetHierarchy.default()
 
-    jvm {
-        jvmToolchain(8)
-    }
+    jvmToolchain(8)
+
+    jvm()
     js(IR) {
         browser {
             testTask {
